@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-    // // Validate request
+    // // Valaccount_noate request
     if (!req.body.amount) {
       res.status(400).send({
         message: "Content can not be empty!"
@@ -18,7 +18,7 @@ exports.create = (req, res) => {
       amount: req.body.amount,
       transaction: req.body.transaction,
       description: req.body.description,
-      published: req.body.published ? req.body.published : false,
+      published: req.body.published,
       account_no: req.body.account_no,
       name: req.body.name,
       email: req.body.email,
@@ -39,8 +39,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const amount = req.query.amount;
-    var condition = amount ? { amount: { [Op.like]: `%${amount}%` } } : null;
+    const transaction = req.query.transaction;
+    var condition = transaction ? { transaction: { [Op.like]: `%${transaction}%` } } : null;
   
     Tutorial.findAll({ where: condition })
       .then(data => {
@@ -49,37 +49,37 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving transactions."
         });
       });
   };
 
-// Find a single Tutorial with an id
+// Find a single Tutorial with an account_no
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const account_no = req.params.account_no;
   
-    Tutorial.findByPk(id)
+    Tutorial.findByPk(account_no)
       .then(data => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find Tutorial with id=${id}.`
+            message: `Cannot find Tutorial with account_no=${account_no}.`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Tutorial with id=" + id
+          message: "Error retrieving Tutorial with account_no=" + account_no
         });
       });
   };
 
   exports.update = (req, res) => {
-    const id = req.params.id;
+    const account_no = req.params.account_no;
   
     Tutorial.update(req.body, {
-      where: { id: id }
+      where: { account_no: account_no },
     })
       .then(num => {
         if (num == 1) {
@@ -88,23 +88,23 @@ exports.findOne = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Cannot update Tutorial with account_no=${account_no}. Maybe Tutorial was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + id
+          message: "Error updating Tutorial with account_no=" + account_no
         });
       });
   };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a Tutorial with the specified account_no in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const account_no = req.params.account_no;
   
     Tutorial.destroy({
-      where: { id: id }
+      where: { account_no: account_no }
     })
       .then(num => {
         if (num == 1) {
@@ -113,13 +113,13 @@ exports.delete = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+            message: `Cannot delete Tutorial with account_no=${account_no}. Maybe Tutorial was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + id
+          message: "Could not delete Tutorial with account_no=" + account_no
         });
       });
   };

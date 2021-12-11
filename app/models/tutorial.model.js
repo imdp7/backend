@@ -1,16 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
     const Tutorial = sequelize.define("tutorial", {
       account_no: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-        primaryKey: true
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
       },
       name:{
         type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
+
       },
       balance: {
         type: Sequelize.FLOAT
@@ -26,7 +25,6 @@ module.exports = (sequelize, Sequelize) => {
       },
       published: {
         type: Sequelize.BOOLEAN,
-        // values: ['completed', 'pending', 'failed']
       }
     });
   

@@ -4,14 +4,7 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-    // // Valaccount_noate request
-    if (!req.body.amount) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
-  
+
     // Create a Tutorial
     const tutorial = {
       balance: req.body.balance,
@@ -39,20 +32,20 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const transaction = req.query.transaction;
-    var condition = transaction ? { transaction: { [Op.like]: `%${transaction}%` } } : null;
-  
-    Tutorial.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving transactions."
-        });
+  const transaction = req.query.transaction;
+  var condition = transaction ? { transaction: { [Op.like]: `%${transaction}%` } } : null;
+
+  Tutorial.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving transactions."
       });
-  };
+    });
+};
 
 // Find a single Tutorial with an account_no
 exports.findOne = (req, res) => {

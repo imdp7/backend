@@ -1,10 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const request_transaction = sequelize.define("request", {
       rt_id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-        primaryKey: true
+        type: Sequelize.INTEGER,
         
       },
      amount: {
@@ -18,10 +15,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       ssn: {
        type: Sequelize.INTEGER,
-       references: {
-        model: 'users', // 'fathers' refers to table name
-        key: 'id', // 'id' refers to column name in fathers table
-     }
+       primaryKey: true,
       }
     });
     return request_transaction;

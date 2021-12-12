@@ -1,7 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
-    const send_transaction = sequelize.define("send_transaction", {
+    const send_transaction = sequelize.define("send", {
       st_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true
       },
@@ -19,10 +20,10 @@ module.exports = (sequelize, Sequelize) => {
       },
     id: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
       },
     ssn: {
        type: Sequelize.INTEGER,
+       
       }
     });
   

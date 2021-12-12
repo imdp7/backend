@@ -5,6 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   
+
     // Create a Tutorial
     const request = {
       rt_id: req.body.rt_id,

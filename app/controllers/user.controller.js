@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-  
+
     // Create a Tutorial
     const user = {
       ssn: req.body.ssn,

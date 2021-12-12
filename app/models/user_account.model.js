@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const user_account = sequelize.define("user", {
+    const user_account = sequelize.define("users", {
       ssn: {
         type: Sequelize.INTEGER,
         allowNull: false,

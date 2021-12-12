@@ -1,9 +1,8 @@
 module.exports = app => {
 
     const user = require("../controllers/user.controller.js");
-    const tutorials = require("../controllers/tutorial.controller.js");
-    const send = require("../controllers/send_transaction.controller.js");
-    const request = require("../controllers/Request_transaction.controller.js");
+    const s_tran = require("../controllers/send_transaction.controller.js");
+    const r_tran = require("../controllers/Request_transaction.controller.js");
     
     var router = require("express").Router();
     //USER ROUTES
@@ -14,39 +13,17 @@ module.exports = app => {
     router.get("/user", user.findAll);
 
 
-    //TUTORIAL ROUTES
-    
-
-    //Create a new Tutorial
-    router.post("/tutorials", tutorials.create);
-
-    //Create a new Tutorial
-    router.get("/tutorials", tutorials.findAll);
-
-    //Create a new Tutorial
-    router.post("/tutorials/account_no", tutorials.update);
-
-    //Create a new Tutorial
-    router.post("/tutorials/account_no", tutorials.delete);
-
-    //Create a new Tutorial
-    router.post("/tutorials", tutorials.deleteAll);
-
-
-
     //SEND ROUTES
 
-    router.post('/send', send.create);
+    router.post('/send', s_tran.create);
 
-    router.get('/send', send.findAll);
+    router.get('/send', s_tran.findAll);
 
     //REQUEST ROUTES
 
-    router.post('/request', request.create);
+    router.post('/request', r_tran.create);
 
-    router.get('/request', request.findAll);
-
+    router.get('/request', r_tran.findAll);
 
     app.use('/api', router);
-    
   };

@@ -46,31 +46,31 @@ exports.findAll = (req, res) => {
   };
 
   exports.findOne = (req, res) => {
-    const ssn = req.params.ssn;
+    const id = req.params.id;
   
-    Request.findByPk(ssn)
+    Request.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find Tutorial with id=${ssn}.`
+            message: `Cannot find Tutorial with id=${id}.`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Tutorial with id=" + ssn
+          message: "Error retrieving Tutorial with id=" + id
         });
       });
   };
 
 
   exports.update = (req, res) => {
-    const ssn = req.params.ssn;
+    const id = req.params.id;
   
     Request.update(req.body, {
-      where: { ssn: ssn }
+      where: { id: id }
     })
       .then(num => {
         if (num == 1) {
@@ -79,23 +79,23 @@ exports.findAll = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${ssn}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + ssn
+          message: "Error updating Tutorial with id=" + id
         });
       });
   };
 
 
   exports.delete = (req, res) => {
-    const ssn = req.params.ssn;
+    const id = req.params.id;
   
     Request.destroy({
-      where: { ssn: ssn }
+      where: { id: id }
     })
       .then(num => {
         if (num == 1) {
@@ -104,13 +104,13 @@ exports.findAll = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete Tutorial with id=${ssn}. Maybe Tutorial was not found!`
+            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + ssn
+          message: "Could not delete Tutorial with id=" + id
         });
       });
   };

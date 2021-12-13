@@ -68,10 +68,10 @@ exports.findAll = (req, res) => {
   };
 
   exports.update = (req, res) => {
-    const ssn = req.params.ssn;
+    const id = req.params.id;
   
     Send_TRAN.update(req.body, {
-      where: { ssn: ssn }
+      where: { id: id }
     })
       .then(num => {
         if (num == 1) {
@@ -80,23 +80,23 @@ exports.findAll = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${ssn}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + ssn
+          message: "Error updating Tutorial with id=" + id
         });
       });
   };
 
 
   exports.delete = (req, res) => {
-    const ssn = req.params.ssn;
+    const id = req.params.id;
   
     Send_TRAN.destroy({
-      where: { ssn: ssn }
+      where: { id: id }
     })
       .then(num => {
         if (num == 1) {
@@ -105,13 +105,13 @@ exports.findAll = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete Tutorial with id=${ssn}. Maybe Tutorial was not found!`
+            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + ssn
+          message: "Could not delete Tutorial with id=" + id
         });
       });
   };

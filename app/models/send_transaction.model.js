@@ -20,7 +20,8 @@ module.exports = (sequelize, Sequelize) => {
       },
     ssn: {
        type: Sequelize.INTEGER,
-       primaryKey: true
+       primaryKey: true,
+       allowNull: false,
       }
     });
   

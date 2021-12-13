@@ -16,6 +16,7 @@ module.exports = (sequelize, Sequelize) => {
       ssn: {
        type: Sequelize.INTEGER,
        primaryKey: true,
+       allowNull: false,
       }
     });
     return request_transaction;

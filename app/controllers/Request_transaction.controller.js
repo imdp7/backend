@@ -44,3 +44,90 @@ exports.findAll = (req, res) => {
         });
       });
   };
+
+  exports.findOne = (req, res) => {
+    const ssn = req.params.ssn;
+  
+    Request.findByPk(ssn)
+      .then(data => {
+        if (data) {
+          res.send(data);
+        } else {
+          res.status(404).send({
+            message: `Cannot find Tutorial with id=${ssn}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Tutorial with id=" + ssn
+        });
+      });
+  };
+
+
+  exports.update = (req, res) => {
+    const ssn = req.params.ssn;
+  
+    Request.update(req.body, {
+      where: { ssn: ssn }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Tutorial was updated successfully."
+          });
+        } else {
+          res.send({
+            message: `Cannot update Tutorial with id=${ssn}. Maybe Tutorial was not found or req.body is empty!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating Tutorial with id=" + ssn
+        });
+      });
+  };
+
+
+  exports.delete = (req, res) => {
+    const ssn = req.params.ssn;
+  
+    Request.destroy({
+      where: { ssn: ssn }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Tutorial was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete Tutorial with id=${ssn}. Maybe Tutorial was not found!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Could not delete Tutorial with id=" + ssn
+        });
+      });
+  };
+
+
+  exports.deleteAll = (req, res) => {
+    Request.destroy({
+      where: {},
+      truncate: false
+    })
+      .then(nums => {
+        res.send({ message: `${nums} Tutorials were deleted successfully!` });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while removing all tutorials."
+        });
+      });
+  };
